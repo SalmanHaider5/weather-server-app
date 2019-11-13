@@ -66,6 +66,14 @@ var logger = {
     },
     silly: function(message) {
         winstonLogger.silly(formatMessage(message));
+    },
+    captureReportData: function(data) {
+        try {
+            winstonLogger.info(data);
+        } catch (error) {
+            winstonLogger.error(formatMessage('Error in recharge-bonus report logging'));
+        }
+        
     }
 };    
 
@@ -74,7 +82,7 @@ var formatMessage = function(message) {
     var reqId = context.vars.get('req:x-requestID');
     var msisdn = context.vars.get('req:msisdn');
     var channel = context.vars.get('req:channel');
-    let microservice = process.env.MICROSERVICE_NAME;
+    let microservice = process.env.MICROSERVICE_NAME
     var date = new Date();
     var index_name = 'app_log_' + date.getFullYear() + '_' + (date.getMonth() + 1)  ; // 1 is added in month because getMonth() method returns 0 to 11
     message = {reqId:reqId, msisdn:msisdn, message: message, index : index_name , channel: channel, microservice: microservice};
