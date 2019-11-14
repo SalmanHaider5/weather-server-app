@@ -20,7 +20,6 @@ exports.setValueInRedisCache = async function (cacheKey, cacheObject, ttl, clien
                         logger.error('Error saving data to redis ' + JSON.stringify(err));
                         return reject(new Error("Redis Error: "+ err.message));
                     } else {
-                        logger.debug("Key saved in redis for " + ttl + ' seconds');
                         return resolve(true);
                     }
                 });
@@ -47,7 +46,6 @@ exports.getValueFromRedisCache = async function (cacheKey, clientName = 'redisCl
                     logger.error('Error in getting value from redis cache ' + JSON.stringify(err));                   
                     return reject(new Error("Redis Error: "+ err.message));
                 } else {
-                    logger.info('Value fetched from redis cache');
                     return resolve(JSON.parse(cacheObject));
                 }
             });
@@ -72,7 +70,6 @@ exports.deleteValueInRedisCache = async function(cacheKey, clientName = 'redisCl
                     logger.error('Error in deleting from redis cache ' + JSON.stringify(err));
                     return reject(new Error("Redis Error: "+ err.message));
                 } else {
-                    logger.info('Key deleted successfully from redis cache');
                     return resolve(true);
                 }
             });
@@ -129,7 +126,6 @@ exports.deleteCustomerInfoCache = function (key) {
                 let key = 'custinfo:'+phoneNumber;
                 await exports.deleteValueInRedisCache(key);
             });
-            logger.debug('Deleted customer info cache');
             return resolve(true);
         });
     } catch (error) {
