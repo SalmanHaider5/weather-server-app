@@ -29,7 +29,8 @@ exports.validationRequired = function (params, required) {
 
 exports.isSanitisedString = function(str){
     try {
-        if (! /^[a-zA-Z0-9]+$/.test(str)) {
+        
+        if (/[\t\r\n]|(--[^\r\n]*)|(\/\*[\w\W]*?(?=\*)\*\/)/gi.test(str)) {
             //validation failed
             return false
         }else{
@@ -71,4 +72,14 @@ exports.isValidMSISDN = async function(msisdn){
             return reject(error);
         }) 
     }
+}
+
+exports.escapeCharacter =  (str) => {
+    try {
+        let retval = str.replace(/[;\\\\/:*?\"<>|@&',%]/gi, "")
+        return retval;
+    } catch (error) {
+        return error;
+    }
+
 }
