@@ -19,6 +19,8 @@
     "pg-hstore": "^2.3.3",
     "redis": "^2.8.0",
     "sequelize": "^5.12.3",
+    "soap": "^0.31.0",
+    "strong-soap": "^1.22.1",
     "uuid": "^3.3.2",
     "winston": "^2.0.0",
     "winston-daily-rotate-file": "^3.10.0",
