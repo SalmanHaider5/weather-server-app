@@ -20,6 +20,7 @@ exports.clsMiddleware = (req, res, next) => {
       clsNamespace.set('req:x-user-package-plan',req.get('x-user-package-plan'));
       clsNamespace.set('req:x-user-segment-type',req.get('x-user-segment-type'));
       clsNamespace.set('req:x-app-version', req.get('x-app-version'));
+      clsNamespace.set('req:msisdn', req.params.msisdn || req.body.msisdn || 'NA')
       next()
     })
   } catch (error) {
