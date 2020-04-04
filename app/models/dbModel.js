@@ -5,11 +5,11 @@ const sequelize = new Sequelize(process.env.POSTGRES_DBNAME , process.env.POSTGR
   host: process.env.POSTGRES_HOST,
   port: process.env.POSTGRES_PORT,
   pool: {
-    max: process.env.MAX_DB_CONNECTIONS || 100,
-    min: process.env.MIN_DB_CONNECTIONS || 50,
-    idle: process.env.IDLE_DB_TIME || 10000,
-    acquire: process.env.ACQUIRE_DB || 60000,
-    evict: process.env.EVICT_DB || 1000
+    max: Number(process.env.MAX_DB_CONNECTIONS) || 100,
+    min: Number(process.env.MIN_DB_CONNECTIONS) || 50,
+    idle: Number(process.env.IDLE_DB_TIME) || 10000,
+    acquire: Number(process.env.ACQUIRE_DB) || 60000,
+    evict: Number(process.env.EVICT_DB) || 1000
   }
 });
 
