@@ -71,7 +71,7 @@ var logger = {
         try {
             winstonLogger.info(data);
         } catch (error) {
-            winstonLogger.error(formatMessage('Error in recharge-bonus report logging'));
+            winstonLogger.error(formatMessage(`Error in ${process.env.MICROSERVICE_NAME} report logging`));
         }
         
     }
