@@ -8,6 +8,7 @@ var apiRouter = require('./routes/api');
 var healthRouter = require('./routes/health');
 
 var cls = require('./utils/context');
+var reqLogger = require('./middleware/reqLogger');
 
 var app = express();
 
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(cls.clsMiddleware);
+app.use(reqLogger.log);
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
