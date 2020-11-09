@@ -75,3 +75,4 @@ app/data/postpaidbills/
 dev.Dockerfile
 .vscode
 .envnodemon
+Dockerfile

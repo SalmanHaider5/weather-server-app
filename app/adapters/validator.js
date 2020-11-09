@@ -1,3 +1,6 @@
+const promiseAdapter = require('../adapters/promiseAdapter');
+const Validator = require('validatorjs');
+
 exports.validationRequired = function (params, required) {
 
     try {
@@ -82,4 +85,24 @@ exports.escapeCharacter =  (str) => {
         return error;
     }
 
+}
+
+
+
+exports.validate = async(data, rules, customErrorMessages) => {
+    try {
+        let validation = new Validator(data, rules, customErrorMessages);
+        if(validation.fails()){
+
+            let keys = Object.keys(validation.errors.errors);
+
+            let msg = validation.errors.errors[keys[0]][0] + '| key name: ' + keys[0]
+            return promiseAdapter.reject( {code: 'error/validation', message: msg} );
+        }
+
+        return promiseAdapter.resolve(validation.passes());
+
+    } catch (error) {
+        return promiseAdapter.reject(error);
+    }
 }

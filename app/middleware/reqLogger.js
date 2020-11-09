@@ -1,5 +1,6 @@
 const logger = require('../utils/logger');
 const interceptor = require('express-interceptor');
+const context = require('../utils/context'); 
 
 exports.log = interceptor((req, res) => {
 
@@ -28,9 +29,24 @@ exports.log = interceptor((req, res) => {
                         body_statusCode: jsonbody.statusCode,
                         message: jsonbody.message || '',
                         responseSize: req.socket.bytesRead,
-                        microservice: process.env.MICROSERVICE_NAME
+                        microservice: process.env.MICROSERVICE_NAME,
+                        channel : req.get('x-request-channel') || '',
+                        priceplan : req.get('x-user-price-plan') || '',
+                        segment : req.get('x-user-segment') || '',
+                        reqIp : req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+                        reqId : req.id || context.vars.get('req:x-requestID'),
+                        browser : req.get('x-request-browser') || '',
+                        browserVersion : req.get('x-browser-version') || '',
+                        os : req.get('x-request-os') || '',
+                        osVersion : req.get('x-os-version') || '',
+                        appVersion : req.get('x-app-version') || '',
+                        deviceMake : req.get('x-device-make') || '',
+                        deviceModel : req.get('x-device-model') || '',
+                        packagePlan : req.get('x-user-package-plan') || '',
+                        planType : req.get('x-user-plan-type') || '',
+                        segmentType : req.get('x-user-segment-type') || '',
+                        locale : req.get('x-app-language') || 'EN'
                     }
-    
                     logger.captureReportData(data)
                     send(body);
                 } catch (error) {
@@ -64,7 +80,6 @@ exports.logResponseBody = (req, res, next) => {
         chunks.push(chunk);
   
       var body = JSON.parse(Buffer.concat(chunks));
-      console.log(req.path, body);
   
       oldEnd.apply(res, arguments);
     };
