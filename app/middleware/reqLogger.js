@@ -16,9 +16,10 @@ exports.log = interceptor((req, res) => {
             intercept: function(body, send) {
                 try {
                     const date = new Date();
+                    let thisMonth = date.getMonth() + 1; 
                     jsonbody = JSON.parse(body);
                     var data = {
-                        index : `requests_${date.getMonth()}_${date.getFullYear()}_${process.env.MICROSERVICE_NAME}`,
+                        index : `requests_${thisMonth}_${date.getFullYear()}_${process.env.MICROSERVICE_NAME}`,
                         msisdn : getMsisdnFromUrl(req.url) || req.body.msisdn,
                         url: getUrlWthoutMsisdn(req.url),
                         rawUrl: req.url,
