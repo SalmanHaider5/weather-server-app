@@ -4,6 +4,7 @@ const context = require('../utils/context');
 const cacheModel = require('../models/cacheModel');
 
 const apiResponseService = require('../services/apiResponseService');
+const { getWeatherByCityName } = require('../controllers/weather');
 
 router.get('/', async function (req, res) {
     try {

@@ -2,6 +2,7 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+const cors = require('cors');
 
 var indexRouter = require('./routes/index');
 var apiRouter = require('./routes/api');
@@ -24,6 +25,8 @@ app.use(cookieParser());
 app.use(cls.clsMiddleware);
 app.use(reqLogger.log);
 
+
+
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
 app.use('/health', healthRouter);
@@ -34,6 +37,13 @@ app.use(function(req, res, next) {
 });
 
 
+//Enabling cors
+app.use(cors());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 // error handler
 app.use(function(err, req, res, next) {

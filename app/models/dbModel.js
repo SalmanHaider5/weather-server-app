@@ -15,38 +15,61 @@ const sequelize = new Sequelize(process.env.POSTGRES_DBNAME , process.env.POSTGR
 
 exports.Models = async function () {
 
-  var models = {};
+  const models = {};
   try {
 
-    models.kubePod = await sequelize.define('kubePod', {
+    // models.kubePod = await sequelize.define('kubePod', {
+    //   id: {
+    //       type: Sequelize.INTEGER,
+    //       primaryKey: true,
+    //       autoIncrement: true,
+    //   },
+    //   data: { type: Sequelize.JSON }
+    // });
+
+    // models.appConfiguration = await sequelize.define('appConfiguration', {
+    //   id: {
+    //     type: Sequelize.INTEGER,
+    //     primaryKey: true,
+    //     autoIncrement: true,
+    //   },
+    //   configData: { type: Sequelize.TEXT },
+    //   configType: { type: Sequelize.STRING},
+    //   locale: { type: Sequelize.STRING }
+    // },
+    // {
+    //   charset: 'utf8mb4',
+    //   collate: 'utf8mb4_unicode_ci'
+    // });
+
+    models.Users = await sequelize.define('users', {
       id: {
-          type: Sequelize.INTEGER,
-          primaryKey: true,
-          autoIncrement: true,
+        type: Sequelize.INTEGER,
+        primaryKey: true
       },
-      data: { type: Sequelize.JSON }
+      key: { type: Sequelize.STRING }
     });
 
-    models.appConfiguration = await sequelize.define('appConfiguration', {
+    models.Weather = await sequelize.define('weather', {
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
       },
-      configData: { type: Sequelize.TEXT },
-      configType: { type: Sequelize.STRING},
-      locale: { type: Sequelize.STRING }
-    },
-    {
-      charset: 'utf8mb4',
-      collate: 'utf8mb4_unicode_ci'
-    });
+      long: { type: Sequelize.FLOAT },
+      lat: { type: Sequelize.FLOAT },
+      temp: { type: Sequelize.FLOAT },
+      temp_min: { type: Sequelize.FLOAT },
+      temp_max: { type: Sequelize.FLOAT },
+      humidity: { type: Sequelize.FLOAT }
+    })
     
     return models;
   }
   catch (err) {
     return (err);
   }
+
 }
 
 
