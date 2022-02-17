@@ -44,6 +44,7 @@ exports.getWeatherByCityName = async(req, res) => {
     data.cityName = response.data.name;
     data.weather = response.data.main;
     data.coord = response.data.coord;
+    console.log('Data', data)
     res.json(data)
   }catch(err){
     res.send(err)

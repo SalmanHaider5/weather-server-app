@@ -18,4 +18,6 @@ router.get('/', async function (req, res) {
     }
 });
 
+router.get('/weather/:city', getWeatherByCityName);
+
 module.exports = router;

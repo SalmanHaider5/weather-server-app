@@ -11,6 +11,4 @@ router.get('/', function(req, res) {
   res.send(response);
 });
 
-router.get('/weather/:city', getWeatherByCityName);
-
 module.exports = router;
